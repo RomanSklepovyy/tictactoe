@@ -1,0 +1,14 @@
+{
+  "extends": "./tsconfig.json",
+  "exclude": [
+    "node_modules",
+    "test",
+    "dist",
+    "coverage",
+    "logs",
+    ".husky",
+    "**/__tests__",
+    "**/__mocks__",
+    "**/__stubs__"
+  ]
+}

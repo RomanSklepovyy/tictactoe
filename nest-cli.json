@@ -1,0 +1,39 @@
+{
+  "collection": "@nestjs/schematics",
+  "sourceRoot": "services/tictactoe-api/src",
+  "monorepo": true,
+  "root": "services/tictactoe-api",
+  "compilerOptions": {
+    "webpack": true,
+    "tsConfigPath": "services/tictactoe-api/tsconfig.app.json"
+  },
+  "projects": {
+    "tictactoe-api": {
+      "type": "application",
+      "root": "services/tictactoe-api",
+      "entryFile": "main",
+      "sourceRoot": "services/tictactoe-api/src",
+      "compilerOptions": {
+        "tsConfigPath": "services/tictactoe-api/tsconfig.app.json"
+      }
+    },
+    "interfaces": {
+      "type": "library",
+      "root": "packages/interfaces",
+      "entryFile": "index",
+      "sourceRoot": "packages/interfaces/src",
+      "compilerOptions": {
+        "tsConfigPath": "packages/interfaces/tsconfig.lib.json"
+      }
+    },
+    "nest-common": {
+      "type": "library",
+      "root": "packages/nest-common",
+      "entryFile": "index",
+      "sourceRoot": "packages/nest-common/src",
+      "compilerOptions": {
+        "tsConfigPath": "packages/nest-common/tsconfig.lib.json"
+      }
+    }
+  }
+}
