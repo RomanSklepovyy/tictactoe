@@ -1,7 +1,7 @@
 import { IsString, MaxLength, MinLength } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
-export class NewGameDto {
+export class GameBoardDto {
   @ApiProperty({
     maxLength: 9,
     minLength: 9,
