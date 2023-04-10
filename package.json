@@ -6,7 +6,7 @@
   "license": "ISC",
   "homepage": "https://github.com/RomanSklepovyy/tictactoe#readme",
   "scripts": {
-    "lint": "eslint --ignore-path .gitignore",
+    "lint": "eslint ./ --ignore-path .gitignore",
     "test": "jest --coverage",
     "test:watch": "jest --watch",
     "test:e2e": "jest --config jest-e2e.js --runInBand",

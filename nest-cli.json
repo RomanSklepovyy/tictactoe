@@ -34,6 +34,15 @@
       "compilerOptions": {
         "tsConfigPath": "packages/nest-common/tsconfig.lib.json"
       }
+    },
+    "swagger-common": {
+      "type": "library",
+      "root": "packages/swagger-common",
+      "entryFile": "index",
+      "sourceRoot": "packages/swagger-common/src",
+      "compilerOptions": {
+        "tsConfigPath": "packages/swagger-common/tsconfig.lib.json"
+      }
     }
   }
 }

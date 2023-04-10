@@ -12,3 +12,9 @@ export interface ResponseBody {
   status: number;
   data: AnyObject;
 }
+
+export interface ListResponse<T> {
+  page: number;
+  total: number;
+  data: T[];
+}
