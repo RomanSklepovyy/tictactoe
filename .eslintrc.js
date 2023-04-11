@@ -47,6 +47,6 @@ module.exports = {
     'class-methods-use-this': 'off',
     'import/prefer-default-export': 'off',
     'import/no-cycle': 'off',
-    'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
+    'import/no-extraneous-dependencies': 'off',
   },
 };

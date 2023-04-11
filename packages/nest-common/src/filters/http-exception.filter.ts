@@ -7,7 +7,7 @@ import {
   HttpException,
   Logger,
 } from '@nestjs/common';
-import { AnyObject, ResponseBody } from 'interfaces';
+import { AnyObject } from 'interfaces';
 
 const getResponseComments = (
   exceptionResponse: AnyObject,
@@ -19,29 +19,6 @@ const getResponseComments = (
     exceptionResponse.error
   ).toString();
 
-const getResponseBody = (exception) => {
-  const status = exception.getStatus();
-  const exceptionResponse = exception.getResponse();
-
-  if (typeof exceptionResponse === 'object') {
-    const responseBody: ResponseBody = {
-      status,
-      comments: getResponseComments(exceptionResponse, exception),
-      data: {},
-    };
-
-    return responseBody;
-  }
-
-  const responseBody: ResponseBody = {
-    status,
-    comments: exceptionResponse,
-    data: {},
-  };
-
-  return responseBody;
-};
-
 @Catch(HttpException)
 export class HttpExceptionFilter<T extends HttpException>
   implements ExceptionFilter
@@ -52,12 +29,13 @@ export class HttpExceptionFilter<T extends HttpException>
     const ctx = host.switchToHttp();
     const response = ctx.getResponse<Response>();
     const request = ctx.getRequest<Request>();
-    const responseBody = getResponseBody(exception);
+    const status = exception.getStatus();
+    const reason = getResponseComments(response, exception);
 
     this.logger.error(
       `Error on ${request.method} ${request.url}, error: ${exception?.message}`,
     );
 
-    response.status(responseBody.status).json(responseBody);
+    response.status(status).json({ reason });
   }
 }
