@@ -81,7 +81,7 @@ export class GamesUtils {
     const isUserWon = GamesUtils.isUserWon(board);
     if (isUserWon) return GameStatus.xWon;
 
-    const isEmptyCells = !board.includes('-');
+    const isEmptyCells = board.includes('-');
     return isEmptyCells ? GameStatus.running : GameStatus.draw;
   }
 
@@ -89,7 +89,7 @@ export class GamesUtils {
     const isComputerWon = GamesUtils.isComputerWon(board);
     if (isComputerWon) return GameStatus.oWon;
 
-    const isEmptyCells = !board.includes('-');
+    const isEmptyCells = board.includes('-');
     return isEmptyCells ? GameStatus.running : GameStatus.draw;
   }
 
@@ -124,18 +124,18 @@ export class GamesUtils {
     const randomIndex = Math.floor(Math.random() * availableCellIndexes.length);
     const randomAvailableCellIndex = availableCellIndexes[randomIndex];
 
-    chars[randomAvailableCellIndex] = '0';
+    chars[randomAvailableCellIndex] = 'O';
 
     return chars.join('');
   }
 
   static updateBoardWithComputerMove(board: string): string {
     // example on how computer moves logic can be extended
-    if (Math.random() < 0.8) {
-      // 80% chance of computer finishing the row if it has two "o"
-      const updatedBoard = GamesUtils.checkForRowsToFinish(board);
-      if (updatedBoard) return updatedBoard;
-    }
+    // if (Math.random() < 0.8) {
+    //   // 80% chance of computer finishing the row if it has two "o"
+    //   const updatedBoard = GamesUtils.checkForRowsToFinish(board);
+    //   if (updatedBoard) return updatedBoard;
+    // }
 
     return GamesUtils.makeRandomMove(board);
   }
