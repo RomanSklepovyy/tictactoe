@@ -5,7 +5,6 @@ import {
   HttpStatus,
   Logger,
 } from '@nestjs/common';
-import { ResponseBody } from 'interfaces';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { Request, Response } from 'express';
 
@@ -23,11 +22,6 @@ export class HttpAllExceptionsFilter implements ExceptionFilter {
       `Error on ${request?.method} ${request?.url}, error: ${exception?.message}\n${exception.stack}`,
     );
 
-    const responseBody: ResponseBody = {
-      status,
-      comments: exception?.message,
-      data: {},
-    };
-    response.status(status).json(responseBody);
+    response.status(status).json({ reason: exception?.message });
   }
 }

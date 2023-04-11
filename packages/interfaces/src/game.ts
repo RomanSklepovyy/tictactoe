@@ -11,6 +11,11 @@ export interface Game {
   status: GameStatus;
 }
 
+export interface GameUpdate {
+  board?: string;
+  status?: GameStatus;
+}
+
 export interface NewGameResponse {
   location: string;
 }

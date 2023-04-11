@@ -7,12 +7,6 @@ export interface Pagination {
   perPage?: number;
 }
 
-export interface ResponseBody {
-  comments: string;
-  status: number;
-  data: AnyObject;
-}
-
 export interface ListResponse<T> {
   page: number;
   total: number;

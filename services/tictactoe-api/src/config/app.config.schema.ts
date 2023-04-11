@@ -6,6 +6,9 @@ const appConfigSchema = Joi.object({
   TICTACTOE_API_ROOT_PATH: Joi.string().required(),
   TICTACTOE_API_ACCESS_CONTROL_ALLOW_ORIGIN: Joi.string(),
   TICTACTOE_API_SWAGGER_ROOT_PATH: Joi.string().required(),
+
+  // Client settings
+  TICTACTOE_CLIENT_URL: Joi.string().required(),
 });
 
 export default appConfigSchema;

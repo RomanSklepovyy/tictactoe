@@ -7,14 +7,17 @@ import {
   ParseUUIDPipe,
   Post,
   Put,
+  Response,
 } from '@nestjs/common';
 import { ApiOperation, ApiParam, ApiTags } from '@nestjs/swagger';
-import { Game, NewGameResponse } from 'interfaces';
+import { Game } from 'interfaces';
+import { Response as Res } from 'express';
 import {
   BadRequestDecorator,
   SuccessCreationResponseDecorator,
   SuccessResponseDecorator,
 } from 'swagger-common';
+import { ConfigService } from '@nestjs/config';
 
 import { GameResponseSchema } from './swagger-schemas/game.response-schema';
 import { GameBoardDto } from './dto/game-board.dto';
@@ -25,7 +28,14 @@ import { GamesService } from './games.service';
 @BadRequestDecorator()
 @Controller('games')
 export class GamesController {
-  constructor(private readonly gamesService: GamesService) {}
+  private readonly clientUrl: string;
+
+  constructor(
+    private readonly gamesService: GamesService,
+    private readonly configService: ConfigService,
+  ) {
+    this.clientUrl = configService.get('client.url');
+  }
 
   @Get()
   @ApiOperation({ summary: 'Get all games' })
@@ -55,9 +65,14 @@ export class GamesController {
     type: NewGameResponseSchema,
     description: 'New game started',
   })
-  async create(@Body() newGameDto: GameBoardDto): Promise<NewGameResponse> {
+  async create(
+    @Body() newGameDto: GameBoardDto,
+    @Response() response: Res,
+  ): Promise<Res> {
     const { id } = await this.gamesService.create(newGameDto);
-    return { location: `localhost:3000/${id}` };
+    const locationData = { location: `${this.clientUrl}/${id}` };
+
+    return response.set(locationData).json(locationData);
   }
 
   @Put(':game_id')
@@ -72,7 +87,12 @@ export class GamesController {
     @Param('game_id', new ParseUUIDPipe({ version: '4' })) id: string,
     @Body() gameBoardDto: GameBoardDto,
   ): Promise<Game> {
-    return this.gamesService.registerMove(id, gameBoardDto);
+    const gameAfterUserMove = await this.gamesService.registerUserMove(
+      id,
+      gameBoardDto,
+    );
+
+    return this.gamesService.makeComputerMove(gameAfterUserMove);
   }
 
   @Delete(':game_id')

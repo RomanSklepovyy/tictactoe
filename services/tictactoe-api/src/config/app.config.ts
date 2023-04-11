@@ -15,4 +15,7 @@ export default () => ({
     password: process.env.DATABASE_PASSWORD,
     name: process.env.DATABASE_NAME,
   },
+  client: {
+    url: process.env.TICTACTOE_CLIENT_URL,
+  },
 });
