@@ -91,7 +91,8 @@ export class GamesService {
     if (!isStatusValid) return game;
 
     const updatedBoard = GamesUtils.updateBoardWithComputerMove(board);
-    const updatedStatus = GamesUtils.getGameStatusAfterComputerMove(board);
+    const updatedStatus =
+      GamesUtils.getGameStatusAfterComputerMove(updatedBoard);
 
     const gameUpdate = { board: updatedBoard, status: updatedStatus };
     return this.updateBoard(id, gameUpdate);
